@@ -217,7 +217,7 @@ Bring up the docker compose:
 ```
 docker compose up
 ```
-Open a browser tab to localhost:8081 and login to keycloak (admin/admin). Create a client named aqlbetter with client_id=aqlbetter, the urls set to http://localhost:4201 and Authentication flagged on, choose client_id and client_secret as credentials and copy the newly created client_secret. Reset the ehrbase-admin password and copy it. client_secret and password for ehrbase-admin will be needed for the login form. 
+Open a browser tab to localhost:8081/auth/admin and login to keycloak (admin/admin). Create a client named aqlbetter with client_id=aqlbetter, the urls set to http://localhost:4201 and Authentication flagged on, choose client_id and client_secret as credentials and copy the newly created client_secret. Reset the ehrbase-admin password and copy it. client_secret and password for ehrbase-admin will be needed for the login form. 
 
 ### RUN
 Run with:
