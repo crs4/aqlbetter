@@ -1,14 +1,14 @@
 # AQL BUILDER WRITTEN BY BETTER AND ADAPTED BY SASURFER (@GITHUB)
- This sofware helps in building openEHR aql queries. It needs a running instance of EHRBase in order to work. Its main capabilities are: creating the query with autocompletion and template visualization, saving queries on the running instance of EHRBase (called views) or locally (called snippets), performing queries, retrieving and showing the results, importing (writing into EHRBase) templates. More info at [aql builder]( https://docs.better.care/studio/aql-builder/overview ).
+ This sofware helps in building openEHR aql queries. It needs a running instance of EHRBase in order to work. Its main capabilities are: creating the query with autocompletion and template visualization, saving queries on the running instance of EHRBase (called views) or locally (called snippets), performing queries, retrieving and showing the results, importing (writing into EHRBase) templates. More info at [aql builder site]( https://docs.better.care/studio/aql-builder/overview ).
 
-At login are asked: Username, Password, Platform URL. If oauth is configured (see below on how to do it) then the client_secret is also requested. The platform URL has the form http://{youehrbaseservername}:{yourehrbaseserverport}/ehrbase
+At login are asked: Username, Password, Platform URL. If oauth2 is configured (see below on how to do it) then the client_secret is also requested. The platform URL has the form http://{youehrbaseservername}:{yourehrbaseserverport}/ehrbase
 
 NOTE: It is necessary to login with the EHRBase admin credentials to let all template and views methods work as intended.
 
 Example of values for the default credentials:
-Username: ehrbase-admin
-Password: EvenMoreSecretPassword
-Platform URL: http://localhost:8080/ehrbase
+- Username: ehrbase-admin
+- Password: EvenMoreSecretPassword
+- Platform URL: http://localhost:8080/ehrbase
 
 
 ## INSTALL LOCALLY 
@@ -38,7 +38,9 @@ This step, though optional, ensures that the app uses the EHRBase nodename, e.g.
 ## RUN WITH BASIC AUTH
 
 ### EHRBASE CONFIGURATION
-This is an example of .env.ehrbase (read by docker compose yaml):
+In the EHRBase directory creates two files: .env.ehrbase and docker-compose.yml
+
+This is an example of .env.ehrbase (read by docker-compose.yaml):
 ```
 SERVER_NODENAME=local.ehrbase.org
 SECURITY_AUTHTYPE=BASIC
@@ -69,10 +71,71 @@ WEB_CORS_ALLOWEDMETHODS=GET,PUT,DELETE,POST,OPTIONS,HEAD
 WEB_CORS_ALLOWCREDENTIALS=true
 WEB_CORS_ALLOWEDHEADERS=*
 ```
+and the related docker-compose.yml:
+```
+version: '3'
 
+#
+# Minimal setup for a running EHRbase. Contains the server component as well as the required postgres instance.
+#
+services:
+
+  #
+  # EHRBase container. see `.env.ehrbase` for configuration details.
+  #
+  ehrbase:
+    image: ${EHRBASE_IMAGE:-ehrbase/ehrbase:2.6.0}
+    env_file:
+      - .env.ehrbase
+    environment:
+      DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
+      DB_USER_ADMIN: ehrbase
+      DB_PASS_ADMIN: ehrbase
+      DB_USER: ehrbase_restricted
+      DB_PASS: ehrbase_restricted
+    links:
+      - ehrdb
+    depends_on:
+      ehrdb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - ehrbase-net
+
+  #
+  # Pre-configured ehrbase postgres.
+  #
+  ehrdb:
+    image: ${EHRBASE_POSTGRES_IMAGE:-ehrbase/ehrbase-v2-postgres:16.2}
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      EHRBASE_USER_ADMIN: ehrbase
+      EHRBASE_PASSWORD_ADMIN: ehrbase
+      EHRBASE_USER: ehrbase_restricted
+      EHRBASE_PASSWORD: ehrbase_restricted
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    ports:
+      - "5432:5432"
+    networks:
+      - ehrbase-net
+    volumes:
+      - ./.pgdata:/var/lib/postgresql/data      
+networks:
+  ehrbase-net: { }
+```
+Start the services:
+```
+docker compose up 
+```
 ### AQLBETTER CONFIGURATION
 Make sure to use {aqlbetter_dir}/projects/aql-builder/src/environments/environment.prod.ts.BASICAUTH
-From the dir aqlbuilder:
+From the dir {aqlbetter_dir}/projects/aql-builder:
 ```
 cp ./src/environments/environment.prod.ts.BASICAUTH ./src/environments/environment.prod.ts
 
@@ -206,6 +269,11 @@ from the latest https://github.com/ehrbase/ehrbase.git copy the path to the file
 
 Modify the SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI server and port with your keycloak ip and port.
 
+Start the services:
+```
+docker compose up 
+```
+
 ### AQLBETTER CONFIGURATION
 Use {aqlbetter_dir}/projects/aql-builder/src/environments/environment.prod.ts.OAUTH2 and modify the authorizationUrl according to your installation of keycloak. Remember that the address (server:port) must be the same as the one given in SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI in the EHRBase settings (172.31.0.2:8080 in the example).
 Rerun the build step:
@@ -213,11 +281,7 @@ Rerun the build step:
 ng build aql-builder --prod
 ```
 ### KEYCLOAK
-Bring up the docker compose:
-```
-docker compose up
-```
-Open a browser tab to localhost:8081/auth/admin and login to keycloak (admin/admin). Create a client named aqlbetter with client_id=aqlbetter, the urls set to http://localhost:4201 and Authentication flagged on, choose client_id and client_secret as credentials and copy the newly created client_secret. Reset the ehrbase-admin password and copy it. client_secret and password for ehrbase-admin will be needed for the login form. 
+Open a browser tab to localhost:8081/auth/admin and login to keycloak (admin/admin). Create, inside the ehrbase realm, a client named aqlbetter with client_id=aqlbetter, the urls set to http://localhost:4201 and Authentication and OAuth 2.0 Device Authorization Grant flagged on, choose client_id and client_secret as credentials and copy the newly created client_secret. Reset the ehrbase-admin password and copy it. client_secret and password for ehrbase-admin will be needed for the login form. 
 
 ### RUN
 Run with:
