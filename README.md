@@ -401,4 +401,7 @@ All Better UI component packages are covered by [Apache 2.0](/LICENSE)
 Read more about this license [here](https://choosealicense.com/licenses/apache-2.0/)
 
 # Acknowledgments
-This work has been partially funded by the “Total Patient Management” (ToPMa) project (grant by the Sardinian Regional Authority, grant number RC_CRP_077).
+This work has been partially funded by the following sources:
+<li>“Total Patient Management” (ToPMa) project (grant by the Sardinian Regional Authority, grant number RC_CRP_077);</li>
+<li>the “Processing, Analysis, Exploration, and Sharing of Big and/or Complex Data” (XDATA) project (grant by the Sardinian Regional Authority). 
+</li><ul>
