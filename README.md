@@ -1,7 +1,7 @@
 # AQL BUILDER WRITTEN BY BETTER AND ADAPTED BY SASURFER (@GITHUB)
  This sofware helps in building openEHR aql queries. It needs a running instance of EHRBase in order to work. Its main capabilities are: creating the query with autocompletion and template visualization, saving queries on the running instance of EHRBase (called views) or locally (called snippets), performing queries, retrieving and showing the results, importing (writing into EHRBase) templates. More info at [aql builder site]( https://docs.better.care/studio/aql-builder/overview ).
 
-At login are asked: Username, Password, Platform URL. If oauth2 is configured (see below on how to do it) then the client_secret is also requested. The platform URL has the form http://{youehrbaseservername}:{yourehrbaseserverport}/ehrbase
+At login are asked: Username, Password, Platform URL. If oauth2 is configured (see below on how to do it) then the client_secret is also requested. The platform URL has the form http://{yourehrbaseservername}:{yourehrbaseserverport}/ehrbase
 
 NOTE: It is necessary to login with the EHRBase admin credentials to let all template and views methods work as intended.
 
