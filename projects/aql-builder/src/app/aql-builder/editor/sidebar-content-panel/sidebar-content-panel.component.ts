@@ -291,8 +291,8 @@ export class SidebarContentPanelComponent implements OnInit, OnDestroy {
     //templateId='BBMRI-ERIC_Colorectal_Cancer_Cohort_Report';
     this.ehrApiService.getTemplate(templateId)
       .subscribe(t => {
-        this.templateLanguages = t.webTemplate.languages.map(l => ({value: l, label: l, disabled: false}) as DropdownItem<unknown>);
-        this.selectedTemplateLanguage = t.webTemplate.defaultLanguage;
+        this.templateLanguages = t.languages.map(l => ({value: l, label: l, disabled: false}) as DropdownItem<unknown>);
+        this.selectedTemplateLanguage = t.defaultLanguage;
         this.originalTemplate = t;
         this.template = cloneDeep(t);
         this.templateTreeService.setTemplate(this.template);

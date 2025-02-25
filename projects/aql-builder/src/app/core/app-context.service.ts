@@ -42,9 +42,15 @@ export class AppContextService {
     return CommonUtil.removeTrailingSlash(this.resourceUrl) + '/rest/openehr/v1';
   }
 
+  //ECIS
+  // getRestUrlwt(): string {
+  //   return CommonUtil.removeTrailingSlash(this.resourceUrl) + '/rest/ecis/v1';
+  // }
+
   getRestUrlwt(): string {
-    return CommonUtil.removeTrailingSlash(this.resourceUrl) + '/rest/ecis/v1';
+    return CommonUtil.removeTrailingSlash(this.resourceUrl) + '/rest/openehr/v1';
   }
+
 
   getAdminRestUrl(): string {
     return CommonUtil.removeTrailingSlash(this.resourceUrl) + '/rest/admin';

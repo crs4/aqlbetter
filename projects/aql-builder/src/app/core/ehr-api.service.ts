@@ -72,25 +72,44 @@ export class EhrApiService {
   getTemplate(templateId: string): Observable<Template> {
     //console.log('gettemplate',templateId)
     //templateId='BBMRI-ERIC_Colorectal_Cancer_Cohort_Report'
-    return this.http.get<Template>(`${this.getApiUrlwt()}/template/${encodeURIComponent(templateId)}`)
+    return this.http.get<Template>(`${this.getApiUrlwt()}/definition/template/adl1.4/${encodeURIComponent(templateId)}`)
       .pipe(
         map(template => {
-          this.addParents(template.webTemplate.tree);
+          this.addParents(template.tree);
           return template;
         })
       );
   }
 
   getWebTemplate(templateId: string): Observable<Template> {
-    return this.http.get<Template>(`${this.getApiUrlwt()}/template/${encodeURIComponent(templateId)}`, {headers: this.getHeaders()});
+    return this.http.get<Template>(`${this.getApiUrlwt()}/definition/template/adl1.4/${encodeURIComponent(templateId)}`, {headers: this.getHeaders()});
   }
+
+//ECIS
+  // getTemplate(templateId: string): Observable<Template> {
+  //   //console.log('gettemplate',templateId)
+  //   //templateId='BBMRI-ERIC_Colorectal_Cancer_Cohort_Report'
+  //   return this.http.get<Template>(`${this.getApiUrlwt()}/template/${encodeURIComponent(templateId)}`)
+  //     .pipe(
+  //       map(template => {
+  //         this.addParents(template.webTemplate.tree);
+  //         return template;
+  //       })
+  //     );
+  // }
+
+  // getWebTemplate(templateId: string): Observable<Template> {
+  //   return this.http.get<Template>(`${this.getApiUrlwt()}/template/${encodeURIComponent(templateId)}`, {headers: this.getHeaders()});
+  // }
+
+
 
   deleteTemplate(templateId: string): Observable<any> {
     return this.http.delete(`${this.getAdminApiUrl()}/templates/${templateId}`, {headers: this.getHeaders()});
   }
 
   importTemplate(payload: File): Observable<Template> {
-    let pippo = this.getHeaders();
+    // let pippo = this.getHeaders();
     //console.log('type headers',typeof(pippo));
     //console.log('headers importtemplate',pippo);
     // return this.http.post<Template>(`${this.getApiUrl()}/definition/template/adl1.4/`, payload, {headers: this.getHeaders()});

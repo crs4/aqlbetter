@@ -3,9 +3,9 @@
     <div class="panel-title" *ngIf="isSidebarPanelOpen">
       <ng-container *ngSwitchCase="MenuPanel.TEMPLATES">
         <span *ngIf="!template">{{ selectedPanel | translate}}</span>
-        <span *ngIf="template" [attr.title]="template.webTemplate.templateId">
+        <span *ngIf="template" [attr.title]="template.templateId">
         <i class="fas fa-chevron-left back-btn" (click)="showTemplateList()"></i>
-          {{ template.webTemplate.templateId }}
+          {{ template.templateId }}
       </span>
       </ng-container>
       <ng-container *ngSwitchCase="MenuPanel.PREDEFINED">
@@ -131,14 +131,14 @@
                 </ng-container>
               </div>
 
-              <div class="d-flex language-container" *ngIf="template?.webTemplate.languages?.length > 1">
+              <div class="d-flex language-container" *ngIf="template?.languages?.length > 1">
                 <label class="col-form-label">{{"LANGUAGE" | translate}}:</label>
                 <aql-dropdown class="w-100" [items]="templateLanguages" [currentValue]="selectedTemplateLanguage" (selectItem)="changeSelectedLanguage($event)"></aql-dropdown>
               </div>
             </div>
           </div>
           <div class="panel-content bottom-margin">
-            <aql-tree [tree]="template.webTemplate.tree" [presentation]="templatePresentation" [treeSearchTerm]="treeSearchTerm" [language]="selectedTemplateLanguage"></aql-tree>
+            <aql-tree [tree]="template.tree" [presentation]="templatePresentation" [treeSearchTerm]="treeSearchTerm" [language]="selectedTemplateLanguage"></aql-tree>
           </div>
           <div class="custom-control custom-checkbox my-3 bottom-fixed">
             <input type="checkbox" class="custom-control-input form-check-input" id="customControlCheckbox"

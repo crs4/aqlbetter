@@ -1,7 +1,9 @@
 # AQL BUILDER WRITTEN BY BETTER AND ADAPTED BY SASURFER (@GITHUB)
+_WARNING: for EHRBase versions < 2.5.0 use release 1.0.0. Use latest version for EHRBase version >= 2.14.0 . No version available for 2.5.0<= EHRBase version<2.14.0__
+
  This sofware helps in building openEHR aql queries. It needs a running instance of EHRBase in order to work. Its main capabilities are: creating the query with autocompletion and template visualization, saving queries on the running instance of EHRBase (called views) or locally (called snippets), performing queries, retrieving and showing the results, importing (writing into EHRBase) templates. More info at [aql builder site]( https://docs.better.care/studio/aql-builder/overview ).
 
-At login are asked: Username, Password, Platform URL. If oauth2 is configured (see below on how to do it) then the client_secret is also requested. The platform URL has the form http://{youehrbaseservername}:{yourehrbaseserverport}/ehrbase
+At login are asked: Username, Password, Platform URL. If oauth2 is configured (see below on how to do it) then the client_secret is also requested. The platform URL has the form http://{yourehrbaseservername}:{yourehrbaseserverport}/ehrbase
 
 NOTE: It is necessary to login with the EHRBase admin credentials to let all template and views methods work as intended.
 
@@ -290,6 +292,11 @@ ng serve aql-builder --port 4201 --prod
 ```
 Open a browser tab to localhost:4201, fill the credentials and click "Start querying data".
 
+## Acknowledgments
+This work has been partially funded by the “Total Patient Management” (ToPMa) project (grant by the Sardinian Regional Authority, grant number RC_CRP_077).
+
+
+
 # ORIGINAL README FROM BETTER FOLLOWS
 
 # Better UI components
@@ -400,5 +407,3 @@ All Better UI component packages are covered by [Apache 2.0](/LICENSE)
 
 Read more about this license [here](https://choosealicense.com/licenses/apache-2.0/)
 
-# Acknowledgments
-This work has been partially funded by the “Total Patient Management” (ToPMa) project (grant by the Sardinian Regional Authority, grant number RC_CRP_077).

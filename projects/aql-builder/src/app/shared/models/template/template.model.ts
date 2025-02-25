@@ -32,10 +32,18 @@ export class TemplateID {
   archetype_id: string;
 }
 
+// export interface Template {
+//   meta: MetaData;
+//   webTemplate: WebTemplate;
+//   action: string;
+// }
 export interface Template {
-  meta: MetaData;
-  webTemplate: WebTemplate;
-  action: string;
+  templateId: string;
+  version: string;
+  defaultLanguage: string;
+  defaultTerminology: string;
+  languages: string[];
+  tree: any;
 }
 
 interface MetaData {
@@ -71,11 +79,11 @@ export class TreeNode {
   }
 }
 
-export interface WebTemplate {
-  templateId: string;
-  version: string;
-  defaultLanguage: string;
-  defaultTerminology: string;
-  languages: string[];
-  tree: any;
-}
+// export interface WebTemplate {
+//   templateId: string;
+//   version: string;
+//   defaultLanguage: string;
+//   defaultTerminology: string;
+//   languages: string[];
+//   tree: any;
+// }

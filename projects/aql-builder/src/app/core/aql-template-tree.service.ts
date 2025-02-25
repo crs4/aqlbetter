@@ -44,7 +44,7 @@ export class AqlTemplateTreeService {
   setTemplate(template: Template): void {
     this.template = template;
     this.flatTreeNodeStore = new Map<string, TreeNode>();
-    const webTemplateTree = this.template.webTemplate.tree as unknown as TreeNode;
+    const webTemplateTree = this.template.tree as unknown as TreeNode;
     this.flatTreeNodeStore.set(webTemplateTree.aqlPath, webTemplateTree);
 
     this.addChildren(webTemplateTree.children);
