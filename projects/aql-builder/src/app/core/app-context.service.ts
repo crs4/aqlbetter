@@ -123,3 +123,4 @@ export class AppContextService {
     localStorage.setItem(StorageKey.AQL_CONTEXT, payload);
   }
 }
+

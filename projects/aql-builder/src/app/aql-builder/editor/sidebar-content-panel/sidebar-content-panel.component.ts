@@ -469,3 +469,4 @@ export enum PredefinedObject {
   VERSION = 'VERSION',
   VERSIONED_OBJECT = 'VERSIONED_OBJECT',
 }
+
