@@ -64,6 +64,7 @@ MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=FALSE
 MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=true
 MANAGEMENT_ENDPOINT_ENV_SHOWVALUES=ALWAYS
 SYSTEM_ALLOW_TEMPLATE_OVERWRITE=true
+EHRBASE_TEMPLATE_ALLOW_OVERWRITE=true
 ADMIN_API_ACTIVE=true
 CACHE_ENABLED=true
 ADMINAPI_ALLOWDELETEALL=true
@@ -86,7 +87,7 @@ services:
   # EHRBase container. see `.env.ehrbase` for configuration details.
   #
   ehrbase:
-    image: ${EHRBASE_IMAGE:-ehrbase/ehrbase:2.6.0}
+    image: ${EHRBASE_IMAGE:-ehrbase/ehrbase:2.15.0}
     env_file:
       - .env.ehrbase
     environment:
@@ -293,10 +294,11 @@ ng serve aql-builder --port 4201 --prod
 Open a browser tab to localhost:4201, fill the credentials and click "Start querying data".
 
 ## Acknowledgments
-This work has been partially funded by the “Total Patient Management” (ToPMa) project (grant by the Sardinian Regional Authority, grant number RC_CRP_077).
-
-
-
+This work has been partially funded by the following sources:
+<li>“Total Patient Management” (ToPMa) project (grant by the Sardinian Regional Authority, grant number RC_CRP_077);</li>
+<li>the “Processing, Analysis, Exploration, and Sharing of Big and/or Complex Data” (XDATA) project (grant by the Sardinian Regional Authority). 
+</li><ul>
+  
 # ORIGINAL README FROM BETTER FOLLOWS
 
 # Better UI components
@@ -406,4 +408,3 @@ Feel free to use our library in your commercial and private applications
 All Better UI component packages are covered by [Apache 2.0](/LICENSE)
 
 Read more about this license [here](https://choosealicense.com/licenses/apache-2.0/)
-
